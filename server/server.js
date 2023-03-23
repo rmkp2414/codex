@@ -16,7 +16,7 @@ const app = express();
 
 
 var corsOptions = {
-    origin: 'https://codex-ruby-nine.vercel.app',
+    origin: 'https://codex-ruby-nine.vercel.app/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
   
