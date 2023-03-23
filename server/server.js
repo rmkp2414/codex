@@ -14,17 +14,24 @@ const openai =  new OpenAIApi(configuration);
 
 const app = express();
 
+
+var corsOptions = {
+    origin: 'https://codex-ruby-nine.vercel.app',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  
+
 //add middlewares
-app.use(cors()); 
+// app.use(cors()); 
 app.use(express.json()); //allow us to pass json to front end to backend 
 
-app.get('/',async(req,res)=>{
+app.get('/',cors(corsOptions),async(req,res)=>{
     res.status(200).send({
         message:'Hello from CodeX',
     })
 });
 
-app.post('/',async(req,res)=>{
+app.post('/',cors(corsOptions),async(req,res)=>{
     try {
         const prompt = req.body.prompt;
 
