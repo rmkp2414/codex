@@ -1,10 +1,12 @@
-import express from 'express';
-import * as dotenv from 'dotenv';
-import cors from 'cors';
+import express from 'express'
+import * as dotenv from 'dotenv'
+import cors from 'cors'
 
-import {Configuration,OpenAIApi} from 'openai';
+import {Configuration,OpenAIApi} from 'openai'
 
 dotenv.config(); //to be able to use dotenv variables
+
+console.log(process.env.OPENAI_API_KEY);
 
 const configuration = new Configuration({
     apiKey:process.env.OPENAI_API_KEY,
@@ -15,23 +17,23 @@ const openai =  new OpenAIApi(configuration);
 const app = express();
 
 
-var corsOptions = {
-    origin: 'https://codex-ruby-nine.vercel.app/',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
+// var corsOptions = {
+//     origin: 'https://codex-ruby-nine.vercel.app/',
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+//   }
   
 
 //add middlewares
-// app.use(cors()); 
+app.use(cors()); 
 app.use(express.json()); //allow us to pass json to front end to backend 
 
-app.get('/',cors(corsOptions),async(req,res)=>{
+app.get('/',async(req,res)=>{
     res.status(200).send({
         message:'Hello from CodeX',
     })
 });
 
-app.post('/',cors(corsOptions),async(req,res)=>{
+app.post('/',async(req,res)=>{
     try {
         const prompt = req.body.prompt;
 
@@ -60,5 +62,5 @@ app.post('/',cors(corsOptions),async(req,res)=>{
 
 
 app.listen(5000,()=>{
-    console.log('server is running on http://localhost:5000');
+    console.log('server is running on http://localhost:5000');        
 })
